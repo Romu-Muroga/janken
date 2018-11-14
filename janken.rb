@@ -1,18 +1,18 @@
 class Player
   def hand
     # コンソールを入力待ち状態にし、プレイヤーがコンソールから打ち込んだ値を出力する処理のメソッドの処理をこの中に作成する
-    menu = ["0: グー", "1: チョキ", "2: パー"]
+    menu = ["1: グー", "2: チョキ", "3: パー"]
     menu.each do |m|
       puts m
     end
-    return @player_hand = gets.to_i
+    player_hand = gets.to_i
   end
 end
 
 class Enemy
   def hand
     # グー、チョキ、パーの値をランダムに出力するメソッドの処理をこの中に作成する
-    return @enemy_hand = rand(3)
+    enemy_hand = rand(3)
   end
 end
 
@@ -22,15 +22,15 @@ class Janken
     # その際、あいこもしくはグー、チョキ、パー以外の値入力時には、もう一度ジャンケンをする
     # 相手がグー、チョキ、パーのうち、何を出したのかも表示させる
     hands = ["グー", "チョキ", "パー"]
-   
-    if player_hand > (hands.length) - 1
-      puts "無効な数字だす。もう１回！"
+    
+    if player_hand == 0 || player_hand > hands.length
+      puts "無効な値です。もう１回！"
       Janken.new.pon(Player.new.hand, Enemy.new.hand)
-    elsif  (player_hand - enemy_hand + 3) % 3 == 2
+    elsif (player_hand - 1 - enemy_hand + 3) % 3 == 2
       puts "相手の手は#{hands[enemy_hand]}です。あなたの勝ちです"
-    elsif (player_hand - enemy_hand + 3) % 3 == 1
+    elsif (player_hand - 1 - enemy_hand + 3) % 3 == 1
       puts "相手の手は#{hands[enemy_hand]}です。あなたの負けです"
-    elsif (player_hand - enemy_hand + 3) % 3 == 0
+    elsif (player_hand - 1 - enemy_hand + 3) % 3 == 0
       puts "あいこで"
       Janken.new.pon(Player.new.hand, Enemy.new.hand)
     end
